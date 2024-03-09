@@ -8,7 +8,9 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
+
+        <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.min.css')}}">
 
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 
@@ -25,7 +27,7 @@
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-success" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
             <!-- Navbar-->
@@ -36,7 +38,7 @@
                         <li><a class="dropdown-item" href="#!"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
                         <li><a class="dropdown-item" href="#!"><i class="fa-solid fa-key me-2"></i>Password</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin#logout')}}"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -61,7 +63,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href=""><i class="fa-solid fa-user me-2"></i>Profile</a>
                                     <a class="nav-link" href=""><i class="fa-solid fa-key me-2"></i>Password</a>
-                                    <a class="nav-link" href=""><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+                                    <a class="nav-link" href="{{route('admin#logout')}}"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
                                 </nav>
                             </div>
 
