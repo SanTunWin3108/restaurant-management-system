@@ -138,6 +138,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+
+        //get old image from database
+        $old_image = Category::where('id', $id)->first()->image;
+
+        //delete the old image from storage
+        Storage::delete('public/categoryImages/' . $old_image);
+
         Category::where('id', $id)->delete();
 
         return redirect()->route('admin#categories')->with(['successMessage' => 'The cateory has been deleted!']);
