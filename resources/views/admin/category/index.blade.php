@@ -3,6 +3,11 @@
 @section('title', 'Categories')
 
 @section('content')
+
+<style>
+
+</style>
+
 <main>
     <div class="container-fluid px-3">
         <div class="row my-4">
@@ -58,7 +63,7 @@
                 </div> --}}
                 <div class="card shadow ">
                     <div class="card-header bg-white d-flex align-items-center justify-content-between ">
-                        <div>
+                        <div class="fw-bold">
                             <i class="fas fa-table me-1"></i><span class="fs-5 ms-1">Categories</span>
                         </div>
 
@@ -90,7 +95,7 @@
                                         <td class="align-middle">
                                             <div class="d-flex justify-content-center ">
                                                 <button class="btn btn-dark px-2" data-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                                    <a href="" class="text-white">
+                                                    <a href="{{route('admin#editCategory', $c->id)}}" class="text-white">
                                                         <i class="fa-solid fa-pen-to-square fs-5"></i>
                                                     </a>
                                                 </button>
@@ -118,7 +123,7 @@
                 <div class="card shadow ">
                    <form action="{{route('admin#storeCategory')}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="card-header bg-white ">
+                        <div class="card-header bg-white fw-bold">
                             <span class="fs-5"> <b>+</b> Add New Category</span>
                         </div>
                         <div class="card-body">

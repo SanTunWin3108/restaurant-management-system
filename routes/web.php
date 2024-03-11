@@ -42,6 +42,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    //show all categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin#categories');
 
     Route::prefix('admin')->group(function() {
@@ -53,5 +54,11 @@ Route::middleware([
 
         //search category
         Route::get('/categories/search', [CategoryController::class, 'search'])->name('admin#searchCategory');
+
+        //edit category
+        Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin#editCategory');
+
+        //update category
+        Route::put('categories/update/{id}', [CategoryController::class, 'update'])->name('admin#updateCategory');
     });
 });
