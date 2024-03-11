@@ -46,5 +46,6 @@ Route::middleware([
 
     Route::prefix('admin')->group(function() {
         Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin#storeCategory');
+        Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('admin#destroyCategory');
     });
 });

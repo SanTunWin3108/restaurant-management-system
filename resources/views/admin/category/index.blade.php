@@ -6,6 +6,29 @@
 <main>
     <div class="container-fluid px-3">
         <div class="row my-4">
+                {{-- Modal --}}
+                <div class="modal mt-5 fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Delete category?</h5>
+                        <button id="close-btn2" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button id="close-btn1" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form id="deleteForm" action="" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                {{-- Modal End --}}
 
             <div class="col-md-8">
                 @if (session('successMessage'))
@@ -59,16 +82,17 @@
                                         <td class="align-middle">{{$c->name}}</td>
                                         <td class="align-middle">{{$c->updated_at->format('d/m/Y(D)')}}</td>
                                         <td class="align-middle">
-                                            <button class="btn btn-dark p-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                                <a href="" class="text-white">
-                                                    <i class="fa-solid fa-pen-to-square fs-5"></i>
-                                                </a>
-                                            </button>
-                                            <button class="btn btn-danger p-2 ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                                                <a href="" class="text-white">
+                                            <div class="d-flex justify-content-center ">
+                                                <button class="btn btn-dark px-2" data-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                    <a href="" class="text-white">
+                                                        <i class="fa-solid fa-pen-to-square fs-5"></i>
+                                                    </a>
+                                                </button>
+
+                                                <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" class="delete-btn btn btn-danger px-2 ms-2" data-toggle="tooltip" data-bs-placement="top" title="Delete" data-url="{{route('admin#destroyCategory', $c->id)}}">
                                                     <i class="fa-solid fa-trash-can fs-5"></i>
-                                                </a>
-                                            </button>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -130,7 +154,20 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
-        $("body").tooltip({ selector: '[data-bs-toggle=tooltip]' });
+        $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+        $('.delete-btn').click(function() {
+            $url = $(this).data('url');
+            $('#deleteForm').attr('action', $url);
+        });
+
+        $('#close-btn1').click(function() {
+            location.reload();
+        })
+
+        $('#close-btn2').click(function() {
+            location.reload();
+        })
     });
 </script>
 @endsection

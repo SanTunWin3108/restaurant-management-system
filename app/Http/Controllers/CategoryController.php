@@ -31,7 +31,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:categories,name',
             'description' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg,webp,jfif|max:1024'
         ], [
@@ -85,9 +85,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        Category::where('id', $id)->delete();
+
+        return redirect()->route('admin#categories')->with(['successMessage' => 'The cateory has been deleted!']);
     }
 
     private function getCategoryData($request) {
