@@ -28,7 +28,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input name="name" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" value="{{old('name')}}">
-                                                        <label for="inputFirstName">First name</label>
+                                                        <label for="inputFirstName">Full name</label>
                                                         @error('name')
                                                             <small class="text-danger">{{$message}}</small>
                                                         @enderror

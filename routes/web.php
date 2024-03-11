@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -15,26 +16,35 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+//register
 Route::middleware('register_middleware')->get('/', function () {
     return view('admin.auth.register');
 })->name('admin#register');
 
+
+//login
 Route::middleware('login_middleware')->get('admin/login', function() {
     return view('admin.auth.login');
 })->name('admin#login');
 
+
+//logout
 Route::get('admin/logout', function() {
     Session::flush();
     Auth::logout();
     return redirect()->route('admin#login');
 })->name('admin#logout');
 
+
+//user must login or register
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.layouts.master');
-    })->name('dashboard');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('admin#categories');
+
+    Route::prefix('admin')->group(function() {
+        Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin#storeCategory');
+    });
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::orderBy('updated_at', 'desc')->paginate(4);
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -28,7 +30,32 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg,webp,jfif|max:1024'
+        ], [
+            'image.max' => 'The image file size must not be greater than 1MB!'
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->route('admin#categories')
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+
+        $data = $this->getCategoryData($request); //convert category data into array
+
+        if(request()->hasFile('image')) {
+            $image = request()->file('image');
+            $imageName = uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(storage_path('app/public/categoryImages'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        Category::create($data);
+
+        return redirect()->route('admin#categories')->with(['successMessage' => 'The category has been created!']);
     }
 
     /**
@@ -61,5 +88,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    private function getCategoryData($request) {
+        return [
+            'name' => $request->name,
+            'description' => $request->description
+        ];
     }
 }
