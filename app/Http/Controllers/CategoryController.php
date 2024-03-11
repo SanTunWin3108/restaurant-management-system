@@ -25,6 +25,15 @@ class CategoryController extends Controller
         //
     }
 
+    //search category
+    public function search(Request $request) {
+        $categories = Category::where('name', 'like', '%'.$request->searchKey.'%')
+                              ->paginate(4)
+                              ->appends($request->query());
+
+        return view('admin.category.index', compact('categories'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

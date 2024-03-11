@@ -45,7 +45,13 @@ Route::middleware([
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin#categories');
 
     Route::prefix('admin')->group(function() {
+        //create category
         Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin#storeCategory');
+
+        //delete category
         Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('admin#destroyCategory');
+
+        //search category
+        Route::get('/categories/search', [CategoryController::class, 'search'])->name('admin#searchCategory');
     });
 });

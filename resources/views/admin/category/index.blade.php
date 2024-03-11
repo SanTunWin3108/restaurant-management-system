@@ -57,8 +57,14 @@
                     </div>
                 </div> --}}
                 <div class="card shadow ">
-                    <div class="card-header bg-white ">
-                        <i class="fas fa-table me-1"></i><span class="fs-5 ms-1">Categories</span>
+                    <div class="card-header bg-white d-flex align-items-center justify-content-between ">
+                        <div>
+                            <i class="fas fa-table me-1"></i><span class="fs-5 ms-1">Categories</span>
+                        </div>
+
+                        <div>
+                            <a class="text-dark" href="{{route('admin#categories')}}">All categories</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered text-center">
