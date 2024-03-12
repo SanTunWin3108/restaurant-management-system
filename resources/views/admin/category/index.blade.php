@@ -2,11 +2,16 @@
 
 @section('title', 'Categories')
 
+@section('search')
+    <form action="{{route('admin#searchCategory')}}" method="GET" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input name="searchKey" value="{{request('searchKey')}}" class="form-control" type="text" placeholder="Search categories..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-success" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+@endsection
+
 @section('content')
-
-<style>
-
-</style>
 
 <main>
     <div class="container-fluid px-3">
@@ -64,15 +69,15 @@
                 <div class="card shadow ">
                     <div class="card-header bg-white d-flex align-items-center justify-content-between ">
                         <div class="fw-bold">
-                            <i class="fas fa-table me-1"></i><span class="fs-5 ms-1">Categories</span>
+                            <i class="fa-solid fa-book me-1 fs-5"></i><span class="fs-5 ms-1">Categories</span>
                         </div>
 
                         <div>
                             <a class="text-dark" href="{{route('admin#categories')}}">All categories</a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered text-center">
+                    <div class="card-body" style="overflow-x: auto">
+                        <table class="table table-bordered text-center table-hover table-responsive ">
                             <thead>
                                 <tr>
                                     <td class="col-1">ID</td>

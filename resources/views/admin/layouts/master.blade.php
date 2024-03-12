@@ -23,9 +23,10 @@
         <style>
             body {
                 font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+                font-weight: 400;
+                font-style: normal;
             }
+
         </style>
 
     </head>
@@ -36,12 +37,7 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form action="{{route('admin#searchCategory')}}" method="GET" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input name="searchKey" value="{{request('searchKey')}}" class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-success" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
+            @yield('search')
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -62,12 +58,12 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Navigation</div>
 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="">
                                 <div class=""><i class="fa-solid fa-chart-line me-2"></i>Dashboard</div>
 
                             </a>
 
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class=""><i class="fa-solid fa-user me-2"></i>Account</div>
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -79,7 +75,7 @@
                                 </nav>
                             </div>
 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="">
                                 <div class=""><i class="fa-solid fa-list-check me-2"></i>Orders</div>
 
                             </a>
@@ -88,7 +84,7 @@
                                 <div class=""><i class="fa-solid fa-book me-2"></i>Categories</div>
                             </a>
 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="{{route('admin#products')}}">
                                 <div class=""><i class="fa-solid fa-table-cells-large me-2"></i>Products</div>
 
                             </a>
@@ -125,5 +121,7 @@
         <script src="{{asset('jquery/jquery.min.js')}}"></script>
 
         @yield('script')
+
+
     </body>
 </html>

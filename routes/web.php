@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -46,6 +47,7 @@ Route::middleware([
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin#categories');
 
     Route::prefix('admin')->group(function() {
+        //categories
         //create category
         Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin#storeCategory');
 
@@ -60,5 +62,14 @@ Route::middleware([
 
         //update category
         Route::put('categories/update/{id}', [CategoryController::class, 'update'])->name('admin#updateCategory');
+
+        //products
+        Route::get('/products', [ProductController::class, 'index'])->name('admin#products');
+
+        //product creation form
+        Route::get('/products/create', [ProductController::class, 'create'])->name('admin#createProduct');
+
+        //create product
+        Route::post('/products/store', [ProductController::class, 'store'])->name('admin#storeProduct');
     });
 });

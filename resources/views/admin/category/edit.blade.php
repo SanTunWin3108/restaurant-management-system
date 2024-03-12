@@ -2,6 +2,15 @@
 
 @section('title', 'Edit Category')
 
+@section('search')
+    <form action="{{route('admin#searchCategory')}}" method="GET" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input name="searchKey" value="{{request('searchKey')}}" class="form-control" type="text" placeholder="Search categories..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-success" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+@endsection
+
 @section('content')
     <div class="container px-3">
         <div class="row">
@@ -15,7 +24,7 @@
                 <form action="{{route('admin#updateCategory', $category->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
-                    <div class="card">
+                    <div class="card shadow ">
                         <div class="card-header bg-white d-flex align-items-center justify-content-between ">
                             <div class="fw-bold">
                                 <i class="fa-solid fa-pen-to-square fs-5"></i>
