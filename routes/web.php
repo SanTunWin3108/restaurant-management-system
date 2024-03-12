@@ -71,5 +71,8 @@ Route::middleware([
 
         //create product
         Route::post('/products/store', [ProductController::class, 'store'])->name('admin#storeProduct');
+
+        //search product
+        Route::get('/products/search', [ProductController::class, 'search'])->name('admin#searchProducts');
     });
 });

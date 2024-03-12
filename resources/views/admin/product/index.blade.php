@@ -3,7 +3,7 @@
 @section('title', 'Products')
 
 @section('search')
-    <form action="" method="GET" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+    <form action="{{route('admin#searchProducts')}}" method="GET" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
             <input name="searchKey" value="{{request('searchKey')}}" class="form-control" type="text" placeholder="Search products..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
             <button class="btn btn-success" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
@@ -25,10 +25,11 @@
                     <div class="card-header bg-white">
                         <div class="row">
                             <div class="fs-5 fw-bold col-sm-4">
-                                <i class="fa-solid fa-table-cells-large me-1"></i>Products
+                                <i class="fa-solid fa-table-cells-large me-1"></i>Products - {{$products->total()}}
                             </div>
+
                             <div class="col-sm-8 text-sm-end text-center  mt-sm-0 mt-3 ">
-                                <a class="text-dark me-3" href="">All products</a>
+                                <a class="text-dark me-3" href="{{route('admin#products')}}">All products</a>
                                 <a href="{{route('admin#createProduct')}}"><button class="btn btn-success ">+ Add New Product</button></a>
                             </div>
                         </div>

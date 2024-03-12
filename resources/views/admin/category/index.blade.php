@@ -69,7 +69,7 @@
                 <div class="card shadow ">
                     <div class="card-header bg-white d-flex align-items-center justify-content-between ">
                         <div class="fw-bold">
-                            <i class="fa-solid fa-book me-1 fs-5"></i><span class="fs-5 ms-1">Categories</span>
+                            <i class="fa-solid fa-book me-1 fs-5"></i><span class="fs-5 ms-1">Categories - {{$categories->total()}}</span>
                         </div>
 
                         <div>

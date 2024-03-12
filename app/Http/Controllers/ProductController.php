@@ -27,6 +27,16 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories'));
     }
 
+    //search products
+    public function search(Request $request) {
+        $products = Product::where('name','like', '%' . $request->searchKey . '%')
+                            ->orderBy('updated_at', 'desc')
+                            ->paginate(4)
+                            ->appends($request->query());
+
+        return view('admin.product.index', compact('products'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
