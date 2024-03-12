@@ -12,6 +12,32 @@
 @endsection
 
 @section('content')
+<!-- Button trigger modal -->
+
+     <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete product?</h1>
+            <button type="button" class="btn-close closeBtn1" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary closeBtn2" data-bs-dismiss="modal">Close</button>
+            <form class="modalForm" action="" method="POST">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    {{-- Modal End --}}
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 col-lg-10 mx-auto my-5">
@@ -42,8 +68,9 @@
                                     <td class="col-1">ID</td>
                                     <td class="col">Image</td>
                                     <td class="col-2">Name</td>
+                                    <td class="col-1">Price(MMK)</td>
                                     <td class="col-2">Category</td>
-                                    <td class="col-3">Date</td>
+                                    <td class="col-2">Date</td>
                                     <td class="col-2">Action</td>
                                 </tr>
                             </thead>
@@ -56,8 +83,9 @@
                                             <img class="w-100 rounded " src="{{asset('storage/productImages/' . $p->image)}}" alt="">
                                         </td>
                                         <td class="align-middle">{{$p->name}}</td>
+                                        <td class="align-middle">{{$p->price}}</td>
                                         <td class="align-middle">{{$p->category->name}}</td>
-                                        <td class="align-middle">{{$p->updated_at->format('d-M-Y(D)')}}</td>
+                                        <td class="align-middle">{{$p->updated_at->format('d/M/Y(D)')}}</td>
                                         <td class="align-middle">
                                             <div class="d-flex justify-content-center ">
                                                 <button class="btn btn-dark px-2" data-toggle="tooltip" data-bs-placement="top" title="Edit">
@@ -66,9 +94,11 @@
                                                     </a>
                                                 </button>
 
-                                                <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" class="delete-btn btn btn-danger px-2 ms-2" data-toggle="tooltip" data-bs-placement="top" title="Delete" data-url="">
+
+                                                <button data-url="{{route('admin#destroyProduct', $p->id)}}"  data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="delete-btn btn btn-danger px-2 ms-2"data-toggle="tooltip" data-bs-placement="top" title="Delete"data-url="">
                                                     <i class="fa-solid fa-trash-can fs-5"></i>
                                                 </button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -90,6 +120,19 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+        $('.delete-btn').click(function() {
+            $url = $(this).data('url');
+            $('.modalForm').attr('action', $url);
+        });
+
+        $('.closeBtn1').click(function() {
+            location.reload();
+        });
+
+        $('.closeBtn2').click(function() {
+            location.reload();
+        });
     });
 </script>
 @endsection

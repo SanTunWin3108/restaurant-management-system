@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -46,7 +48,7 @@ class ProductController extends Controller
         $categories = Category::get();
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:products,name',
             'description' => 'required',
             'price' => 'required',
             'categoryId' => 'required',
@@ -107,9 +109,17 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        //get image from database
+        $old_image = Product::where('id', $id)->first()->image;
+        if(Storage::exists('public/productImages/' . $old_image)) {
+            Storage::delete('public/productImages/' . $old_image); //delete the image from storage
+        }
+
+        Product::where('id', $id)->delete();
+
+        return redirect()->route('admin#products')->with(['successMessage' => 'The product has been deleted!']);
     }
 
     private function getProductData($request) {
