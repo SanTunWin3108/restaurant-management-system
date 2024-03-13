@@ -25,7 +25,7 @@
                 font-family: "Poppins", sans-serif;
                 font-weight: 400;
                 font-style: normal;
-            }
+            },
 
         </style>
 
@@ -58,33 +58,33 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Navigation</div>
 
-                            <a class="nav-link" href="">
+                            <a class="nav-link" data-nav="dashboard"  href="">
                                 <div class=""><i class="fa-solid fa-chart-line me-2"></i>Dashboard</div>
 
                             </a>
 
-                            <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" data-nav="account" href="" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class=""><i class="fa-solid fa-user me-2"></i>Account</div>
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href=""><i class="fa-solid fa-user me-2"></i>Profile</a>
-                                    <a class="nav-link" href=""><i class="fa-solid fa-key me-2"></i>Password</a>
+                                    <a class="nav-link" data-nav="profile" href=""><i class="fa-solid fa-user me-2"></i>Profile</a>
+                                    <a class="nav-link" data-nav="password" href=""><i class="fa-solid fa-key me-2"></i>Password</a>
                                     <a class="nav-link" href="{{route('admin#logout')}}"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
                                 </nav>
                             </div>
 
-                            <a class="nav-link" href="">
+                            <a class="nav-link" data-nav="order" href="">
                                 <div class=""><i class="fa-solid fa-list-check me-2"></i>Orders</div>
 
                             </a>
 
-                            <a class="nav-link" href="{{route('admin#categories')}}">
+                            <a class="nav-link" data-nav="category" href="{{route('admin#categories')}}">
                                 <div class=""><i class="fa-solid fa-book me-2"></i>Categories</div>
                             </a>
 
-                            <a class="nav-link" href="{{route('admin#products')}}">
+                            <a class="nav-link" data-nav="product" href="{{route('admin#products')}}">
                                 <div class=""><i class="fa-solid fa-table-cells-large me-2"></i>Products</div>
 
                             </a>
@@ -122,6 +122,20 @@
 
         @yield('script')
 
+        <script>
+            $(document).ready(function() {
+                $('.nav-link').each(function() {
 
+                    if(localStorage.getItem('link') === $(this).data('nav')) {
+                        $(this).css('color', 'white');
+                    }
+
+                    $(this).click(function() {
+                        let nav = $(this).data('nav');
+                        localStorage.setItem('link', nav);
+                    })
+                })
+            });
+        </script>
     </body>
 </html>
