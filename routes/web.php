@@ -79,5 +79,11 @@ Route::middleware([
 
         //delete product
         Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('admin#destroyProduct');
+
+        //edit product
+        Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('admin#editProduct');
+
+        //update product
+        Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('admin#updateProduct');
     });
 });

@@ -93,17 +93,66 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+        $categories = Category::get();
+
+        return view('admin.product.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:products,name,' . $id,
+            'description' => 'required',
+            'price' => 'required',
+            'categoryId' => 'required',
+            'image' => 'mimes:png,jpg,jpeg,webp,jfif|max:1024'
+        ], [
+            'image.max' => 'The image file size must not be greater than 1MB'
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->route('admin#editProduct', $id)
+                             ->withErrors($validator)
+                             ->withInput();
+
+        }
+
+
+        $data = $this->getProductData($request); //convert request data into array
+
+        //check user upload image
+        if($request->hasFile('image')) {
+            //get old image from database
+            $old_image = Product::where('id', $id)->first()->image;
+
+            //delete the old image from storage
+            if(Storage::exists('public/productImages/' . $old_image)) {
+                Storage::delete('public/productImages/' . $old_image);
+            }
+
+            //get image from user's request
+            $image = $request->file('image');
+            $imageName = uniqid() . '_' . $image->getClientOriginalName();
+
+            //store image
+            $image->move(storage_path('app/public/productImages/'), $imageName);
+
+            $data['image'] = $imageName;
+        }
+
+        $update = Product::where('id', $id)->update($data);
+
+        if($update) {
+            return redirect()->route('admin#editProduct', $id)
+                            ->with(['successMessage' => 'The product has been updated']);
+        }
     }
 
     /**

@@ -88,11 +88,11 @@
                                         <td class="align-middle">{{$p->updated_at->format('d/M/Y(D)')}}</td>
                                         <td class="align-middle">
                                             <div class="d-flex justify-content-center ">
-                                                <button class="btn btn-dark px-2" data-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                                    <a href="" class="text-white">
+                                                <a href="{{route('admin#editProduct', $p->id)}}">
+                                                    <button class="btn btn-dark px-2" data-toggle="tooltip" data-bs-placement="top" title="Edit">
                                                         <i class="fa-solid fa-pen-to-square fs-5"></i>
-                                                    </a>
-                                                </button>
+                                                    </button>
+                                                </a>
 
 
                                                 <button data-url="{{route('admin#destroyProduct', $p->id)}}"  data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="delete-btn btn btn-danger px-2 ms-2"data-toggle="tooltip" data-bs-placement="top" title="Delete"data-url="">
